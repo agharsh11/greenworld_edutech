@@ -23,8 +23,8 @@ class School(models.Model):
 	school_type=models.CharField(max_length=20)
 	study_medium=models.IntegerField()
 	def __str__(self):
-		return "name: "+ self.school_name	
-class ScholasticDetails(models.Model):
+		return "name: "+ self.school_name
+class ScholasticDetail(models.Model):
     regular_to_school = models.BooleanField()
     current_class = models.IntegerField()
     class_last_year = models.IntegerField()

@@ -17,6 +17,8 @@ class Student(models.Model):
 
 	def __str__(self):
 		return "name: "+ self.first_name + " " + self.middle_name + " " + self.last_name
+	def as_json(self):
+		return dict( student_id = self.id,first_name = self.first_name,last_name=self.last_name,student_img=self.student_img)
 
 class School(models.Model):
 	school_name=models.CharField(max_length=20)
@@ -42,4 +44,6 @@ class ScholasticDetail(models.Model):
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
     def __str__(self):
     	return self.student_id.first_name + " : " + self.current_school.school_name
+    def as_json(self):
+    	return dict(regular=self.regular_to_school,student_id=self.student_id.id,school_id=self.current_school.id,is_english_subject=self.is_english_subject)	
 

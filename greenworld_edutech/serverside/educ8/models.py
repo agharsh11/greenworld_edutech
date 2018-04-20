@@ -33,8 +33,10 @@ class ScholasticDetail(models.Model):
     current_school_shift = models.IntegerField()
     is_english_subject = models.BooleanField()
     break_more_than_three_weeks = models.BooleanField()
-    last_grade_dropout = models.IntegerField()
+    last_grade_dropout = models.IntegerField(blank=True)
     is_private_tuition = models.BooleanField()
     tuition_fees = models.FloatField()
     student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
+    def __str__(self):
+    	return self.student_id.first_name + " : " + self.current_school.school_name
 

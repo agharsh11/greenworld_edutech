@@ -10,10 +10,10 @@ class Student(models.Model):
 	registration_date = models.DateField()
 	year_of_birth=models.IntegerField()
 	birth_date=models.DateField(blank=True)
-	
+
 	GENDER_CHOICES = (('M', 'Male'),('F', 'Female'),)
 	gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-	aadhar= models.CharField(max_length=12,blank=True,validators=[RegexValidator(r'^\d{12}$','Number must be 12 digits', 'Invalid aadhaar')])	
+	aadhar= models.CharField(max_length=12,blank=True,validators=[RegexValidator(r'^\d{12}$','Number must be 12 digits', 'Invalid aadhaar')], unique=True)
 
 	def __str__(self):
 		return "name: "+ self.first_name + " " + self.middle_name + " " + self.last_name
@@ -45,5 +45,5 @@ class ScholasticDetail(models.Model):
     def __str__(self):
     	return self.student_id.first_name + " : " + self.current_school.school_name
     def as_json(self):
-    	return dict(regular=self.regular_to_school,student_id=self.student_id.id,school_id=self.current_school.id,is_english_subject=self.is_english_subject)	
+    	return dict(regular=self.regular_to_school,student_id=self.student_id.id,school_id=self.current_school.id,is_english_subject=self.is_english_subject)
 

@@ -1,7 +1,24 @@
 from django.db import models
 from django.core.validators import RegexValidator,MinLengthValidator
 # Create your models here.
+from django.core.exceptions import ValidationError
 
+validator_fn = [
+    MinLengthValidator(12),
+    RegexValidator(r'^\d{12}$','Number must be 12 digits', 'Invalid aadhaar')
+]
+
+def regex_validators(value):
+    err = None
+    for validator in validator_fn:
+        try:
+            validator(value)
+            # Valid value, return it
+            return value
+        except ValidationError as exc:
+            err = exc
+    # Value match nothing, raise error
+    raise err
 class Student(models.Model):
 	first_name=models.CharField(max_length=20)
 	middle_name=models.CharField(max_length=20,blank=True)
@@ -13,7 +30,7 @@ class Student(models.Model):
 
 	GENDER_CHOICES = (('M', 'Male'),('F', 'Female'),)
 	gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-	aadhar= models.CharField(max_length=12,blank=True, unique=True,validators=[MinLengthValidator(12)])#validators=[RegexValidator(r'^\d{12}$','Number must be 12 digits', 'Invalid aadhaar')])
+	aadhar= models.CharField(max_length=12,blank=True, unique=True,validators=[regex_validators,])#validators=[RegexValidator(r'^\d{12}$','Number must be 12 digits', 'Invalid aadhaar')])
 
 	def __str__(self):
 		return "name: "+ self.first_name + " " + self.middle_name + " " + self.last_name

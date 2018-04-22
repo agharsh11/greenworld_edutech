@@ -78,8 +78,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'greenworld',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
+        'USER': 'niche',
+        'PASSWORD': 'plutonian',
         'HOST': 'localhost',
         'PORT': '',
     }

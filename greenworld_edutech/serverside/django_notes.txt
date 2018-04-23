@@ -1,0 +1,27 @@
+#START A DJANGO PROJECT
+
+django-admin startproject <project_name>
+
+#TO MAKE A NEW APP
+
+python3 manage.py startapp <app_name>
+
+#CREATE A SUPERUSER FROM DJANGO SHELL
+
+python3 manage.py createsuperuser
+or
+python3 manage.py shell
+from django.contrib.auth.models import User
+user=User.objects.create_user('<user_name>', password='password')
+user.is_superuser=True
+user.is_staff=True
+user.save()
+
+#RUN THE DJANGO SERVER
+
+python3 manage.py runserver
+
+#EACH TIME YOU CHANGE THE DATABASE SCHEMA
+
+python3 manage.py makemigrations
+python3 manage.py migrate
